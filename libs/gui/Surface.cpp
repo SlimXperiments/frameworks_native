@@ -82,6 +82,8 @@ Surface::Surface(
     mConnectedToCpu = false;
     mProducerControlledByApp = controlledByApp;
     mSwapIntervalZero = false;
+    mDequeueIdx = 0;
+>>>>>>> e09f502... Display: Add swaprect feature for MDP composition.
 }
 
 Surface::~Surface() {
@@ -169,6 +171,18 @@ int Surface::hook_perform(ANativeWindow* window, int operation, ...) {
     return c->perform(operation, args);
 }
 
+int Surface::setDirtyRegion(Region* inOutDirtyRegion) {
+    Rect dirty;
+    if(inOutDirtyRegion)
+         dirty = inOutDirtyRegion->getBounds();
+    Mutex::Autolock lock(mMutex);
+    status_t res = mGraphicBufferProducer->updateDirtyRegion(mDequeueIdx,
+                                      dirty.left, dirty.top, dirty.right,
+                                      dirty.bottom);
+    return res;
+}
+
+
 int Surface::setSwapInterval(int interval) {
     ATRACE_CALL();
     // EGL specification states:
@@ -202,6 +216,9 @@ int Surface::dequeueBuffer(android_native_buffer_t** buffer, int* fenceFd) {
              result);
         return result;
     }
+
+    mDequeueIdx = buf;
+
     sp<GraphicBuffer>& gbuf(mSlots[buf].buffer);
 
     // this should never happen

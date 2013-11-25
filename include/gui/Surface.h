@@ -77,10 +77,10 @@ public:
     static bool isValid(const sp<Surface>& surface) {
         return surface != NULL && surface->getIGraphicBufferProducer() != NULL;
     }
-
     virtual int32_t getSessionId(){
         return reinterpret_cast<int>(mGraphicBufferProducer.get());
     }
+    status_t setDirtyRegion(Region* dirty = NULL);
 
 protected:
     virtual ~Surface();
@@ -264,6 +264,10 @@ private:
 
     // must be accessed from lock/unlock thread only
     Region mDirtyRegion;
+
+    // mDequeueIdx will be used to store the current buffer index for a layer.
+    int mDequeueIdx;
+>>>>>>> e09f502... Display: Add swaprect feature for MDP composition.
 };
 
 }; // namespace android
