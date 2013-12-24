@@ -460,7 +460,7 @@ void SurfaceFlinger::init() {
             vsyncPhaseOffsetNs, true);
     mEventThread = new EventThread(vsyncSrc);
     sp<VSyncSource> sfVsyncSrc = new DispSyncSource(&mPrimaryDispSync,
-            sfVsyncPhaseOffsetNs, false);
+            sfVsyncPhaseOffsetNs, true);
     mSFEventThread = new EventThread(sfVsyncSrc);
     mEventQueue.setEventThread(mSFEventThread);
 
@@ -1443,7 +1443,6 @@ void SurfaceFlinger::computeVisibleRegions(size_t dpy,
         // iterate through the layer list to find ext_only layers and store
         // the index
         if ((dpy && layer->isExtOnly())) {
-            bIgnoreLayers = true;
             extOnlyLayerIndex = i;
             break;
         }
