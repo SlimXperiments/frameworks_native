@@ -418,9 +418,6 @@ void SurfaceFlinger::init() {
     mHwc = new HWComposer(this,
             *static_cast<HWComposer::EventHandler *>(this));
 
-    // assume red has minimum color depth
-    mMinColorDepth = r;
-
     // get a RenderEngine for the given display / config (can't fail)
     mRenderEngine = RenderEngine::create(mEGLDisplay, mHwc->getVisualID());
 
@@ -1131,7 +1128,8 @@ void SurfaceFlinger::setVirtualDisplayData(
     EGLSurface surface;
     EGLint w, h;
     EGLDisplay display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-    surface = eglCreateWindowSurface(display, mEGLConfig, window, NULL);
+    EGLConfig config = RenderEngine::chooseEglConfig(display, format);
+    surface = eglCreateWindowSurface(display, config, window, NULL);
     eglQuerySurface(display, surface, EGL_WIDTH,  &w);
     eglQuerySurface(display, surface, EGL_HEIGHT, &h);
 
