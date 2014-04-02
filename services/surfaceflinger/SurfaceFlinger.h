@@ -330,6 +330,9 @@ private:
     size_t getMaxTextureSize() const;
     size_t getMaxViewportDims() const;
 
+    uint32_t getMinColorDepth() const { return mMinColorDepth; }
+    inline bool getUseDithering() const { return mUseDithering; }
+
     /* ------------------------------------------------------------------------
      * Display and layer stack management
      */
@@ -436,6 +439,7 @@ private:
     sp<EventThread> mEventThread;
     sp<EventThread> mSFEventThread;
     sp<EventControlThread> mEventControlThread;
+    uint32_t mMinColorDepth;
     EGLContext mEGLContext;
     EGLDisplay mEGLDisplay;
     sp<IBinder> mBuiltinDisplays[DisplayDevice::NUM_BUILTIN_DISPLAY_TYPES];
@@ -461,6 +465,7 @@ private:
     volatile nsecs_t mDebugInTransaction;
     nsecs_t mLastTransactionTime;
     bool mBootFinished;
+    bool mUseDithering;
 
     // these are thread safe
     mutable MessageQueue mEventQueue;
