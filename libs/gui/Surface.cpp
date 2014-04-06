@@ -83,7 +83,6 @@ Surface::Surface(
     mProducerControlledByApp = controlledByApp;
     mSwapIntervalZero = false;
     mDequeueIdx = 0;
->>>>>>> e09f502... Display: Add swaprect feature for MDP composition.
 }
 
 Surface::~Surface() {

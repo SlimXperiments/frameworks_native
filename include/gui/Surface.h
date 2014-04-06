@@ -267,7 +267,6 @@ private:
 
     // mDequeueIdx will be used to store the current buffer index for a layer.
     int mDequeueIdx;
->>>>>>> e09f502... Display: Add swaprect feature for MDP composition.
 };
 
 }; // namespace android
