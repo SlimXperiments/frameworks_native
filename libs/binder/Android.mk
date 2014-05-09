@@ -60,7 +60,6 @@ endif
 LOCAL_C_INCLUDES += hardware/samsung_slsi/$(PLATFORM_DIR)/include
 endif
 
-LOCAL_LDLIBS += -lpthread
 LOCAL_MODULE := libbinder
 LOCAL_SHARED_LIBRARIES += liblog libcutils libutils
 LOCAL_SRC_FILES := $(sources)
@@ -84,7 +83,6 @@ endif
 LOCAL_C_INCLUDES += hardware/samsung_slsi/$(PLATFORM_DIR)/include
 endif
 
-LOCAL_LDLIBS += -lpthread
 LOCAL_MODULE := libbinder
 LOCAL_STATIC_LIBRARIES += libutils
 LOCAL_SRC_FILES := $(sources)
